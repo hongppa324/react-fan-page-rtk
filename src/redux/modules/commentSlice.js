@@ -82,6 +82,20 @@ const commentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    [__getData.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__getData.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.letter = action.payload;
+    },
+    [__getData.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.letter = action.payload;
+    },
     [__getDetailData.pending]: (state, action) => {
       state.isLoading = true;
       state.isError = false;
@@ -90,6 +104,95 @@ const commentSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.letter = action.payload;
+    },
+    [__getDetailData.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.letter = action.payload;
+    },
+    [__createData.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__createData.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.letters.push(action.payload);
+    },
+    [__createData.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__deleteData.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__deleteData.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.letters.filter((item) => item.id !== action.payload);
+    },
+    [__deleteData.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__updateData.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__updateData.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.letters.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, content: action.payload.textarea };
+        } else return item;
+      });
+    },
+    [__updateData.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__updateUser.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__updateUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.letters.map((letter) => {
+        return action.payload.targetIds.forEach((targetId) => {
+          if (letter.id === targetId) {
+            return {
+              ...letter,
+              nickname: action.payload.nickname,
+              avatar: action.payload.avatar,
+            };
+          } else return letter;
+        });
+      });
+    },
+    [__updateUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
+    },
+    [__getUserLetters.pending]: (state, action) => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    [__getUserLetters.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.isError = false;
+      state.userLetters = action.payload;
+    },
+    [__updateUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.error = action.payload;
     },
   },
 });
