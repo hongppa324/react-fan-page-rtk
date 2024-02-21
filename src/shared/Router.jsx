@@ -7,18 +7,23 @@ import Profile from "../pages/Profile";
 import { useSelector } from "react-redux";
 
 export default function Router() {
+  const { isLoggedIn } = useSelector((state) => state.authSlice);
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/detail/:id" element={<Detail />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<Navigate replace to="/" />} />
-
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate replace to="/login" />} />
-        </Route>
+        {isLoggedIn ? (
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Route>
+        ) : (
+          <>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate replace to="/login" />} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );
