@@ -7,24 +7,22 @@ import { loginUser, signupUser } from "../redux/modules/authSlice";
 import { toast } from "react-toastify";
 
 export default function Login() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [joinId, setJoinId] = useState("");
-  const [joinPassword, setJoinPassword] = useState("");
+  const [formState, setFormState] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+    joinId: "",
+    joinPassword: "",
+  });
+  const { id, password, nickname, joinId, joinPassword } = formState;
+
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const dispatch = useDispatch();
   let isLoginButtonActive = false;
 
   const inputChangeHandler = (event) => {
-    const {
-      target: { name, value },
-    } = event;
-    if (name === "id") setId(value);
-    if (name === "password") setPassword(value);
-    if (name === "nickname") setNickname(value);
-    if (name === "joinId") setJoinId(value);
-    if (name === "joinPassword") setJoinPassword(value);
+    const { name, value } = event.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
   if (isLoggedIn) {
@@ -48,8 +46,7 @@ export default function Login() {
       toast.success("로그인 성공");
     } catch (error) {
       console.log(error);
-      const { response } = error;
-      toast.error(response.data.message);
+      toast.error(error.response.data.message);
     }
   };
   const signUpHandler = async (event) => {
@@ -67,9 +64,8 @@ export default function Login() {
       dispatch(signupUser());
       toast.success(response.data.message);
     } catch (error) {
-      const { response } = error;
-      console.log(response);
-      toast.error(response.data.message);
+      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -149,4 +145,11 @@ export default function Login() {
 const Container = styled.div``;
 const StForm = styled.form``;
 const Buttons = styled.div``;
-const StSpan = styled.span``;
+const StSpan = styled.span`
+  color: lightgray;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+`;

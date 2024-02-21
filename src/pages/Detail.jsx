@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
 import { logoutUser } from "../redux/modules/authSlice";
-import authApi from "../axios/auth";
+import authApi from "../axios/authAPi";
 import { getFormattedDate } from "../utils/date";
 import {
   __deleteData,
@@ -50,7 +50,6 @@ export default function Detail() {
     try {
       const response = await authApi.get("/user", {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
