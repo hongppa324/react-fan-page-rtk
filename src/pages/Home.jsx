@@ -10,7 +10,9 @@ import { logoutUser } from "../redux/modules/authSlice";
 import { __getData } from "../redux/modules/commentSlice";
 
 export default function Home() {
-  const { isLoading, error } = useSelector((state) => state.commentSlice);
+  const { letters, isLoading, error } = useSelector(
+    (state) => state.commentSlice
+  );
   const { accessToken } = useSelector((state) => state.authSlice);
   const [member, setMember] = useState("IU");
   const dispatch = useDispatch();
@@ -34,6 +36,7 @@ export default function Home() {
       dispatch(logoutUser());
     }
   };
+
   refreshToken();
   if (error) {
     return <StDiv>{error.message}</StDiv>;
@@ -43,7 +46,23 @@ export default function Home() {
     <>
       <Tabs member={member} setMember={setMember} />
       <AddForm setMember={setMember} />
-      {isLoading ? <StDiv>로딩 중...</StDiv> : <div></div>}
+      {isLoading ? (
+        <StDiv>로딩 중...</StDiv>
+      ) : (
+        <div>
+          {letters
+            ?.filter((comment) => comment.writedTo === member)
+            .map((comment) => (
+              <Comment key={comment.id} comment={comment} />
+            ))}
+          {letters?.filter((comment) => comment.writedTo === member).length ===
+          0 ? (
+            <StDiv>
+              {member}에게 첫번째 메시지를 남기는 주인공이 되어주세요!
+            </StDiv>
+          ) : null}
+        </div>
+      )}
     </>
   );
 }

@@ -21,16 +21,16 @@ export default function AddForm({ setMember }) {
 
   const createComment = (event) => {
     event.preventDefault();
-    const commentContent = {
+    const comment = {
       createdAt: Date.now(),
       nickname,
       avatar: avatar ?? defaultUser,
       content,
-      writedTo: selectMember(commentContent),
+      writedTo: selectMember(),
       id,
       userId,
     };
-    dispatch(__createData(commentContent));
+    dispatch(__createData(comment));
 
     setContent("");
   };
