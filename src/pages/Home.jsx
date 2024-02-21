@@ -25,7 +25,6 @@ export default function Home() {
     try {
       const response = await authApi.get("/user", {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
       });
