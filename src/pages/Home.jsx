@@ -36,8 +36,8 @@ export default function Home() {
       dispatch(logoutUser());
     }
   };
-
   refreshToken();
+
   if (error) {
     return <StDiv>{error.message}</StDiv>;
   }
