@@ -23,7 +23,7 @@
    (6) 로그인 화면 API 연결
    (8) 홈 화면 UI
    (9) json-server 셋업
-   (10) 홈 화면 API dusruf
+   (10) 홈 화면 API 연결
    (11) 상세 화면 UI 및 API 연결
    (12) 프로필 화면 UI
    (13) 프로필 화면 API 연결
