@@ -30,7 +30,14 @@ export default function Layout() {
   );
 }
 
-const StHeader = styled.header``;
+const StHeader = styled.header`
+  user-select: none;
+
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
 const StSpan = styled.span``;
 const StLayout = styled.div``;
 const Buttons = styled.div``;

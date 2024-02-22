@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
 import { logoutUser } from "../redux/modules/authSlice";
-import authApi from "../axios/authAPi";
+import authApi from "../axios/authApi";
 import { getFormattedDate } from "../utils/date";
 import {
   __deleteData,

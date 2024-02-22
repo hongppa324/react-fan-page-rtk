@@ -14,7 +14,9 @@ export const __getData = createAsyncThunk(
   "GET_DATA",
   async (payload, thunkAPI) => {
     try {
-      const response = await jsonApi.get("/letters");
+      const response = await jsonApi.get(
+        "/letters?_sort=createdAt&_order-desc"
+      );
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       console.log("error", error);
@@ -74,8 +76,38 @@ export const __updateData = createAsyncThunk(
     }
   }
 );
-export const __updateUser = createAsyncThunk("UPDATE_USER", () => {});
-export const __getUserLetters = createAsyncThunk("GET_USER_LETTERS", () => {});
+export const __updateUser = createAsyncThunk(
+  "UPDATE_USER",
+  async (payload, thunkAPI) => {
+    try {
+      const updatePromises = payload.targetIds.map(async (id) => {
+        await jsonApi.patch(`/letters/${id}`, {
+          nickname: payload.nickname,
+          avatar: payload.avatar,
+        });
+      });
+      await Promise.all(updatePromises);
+      console.log("업데이트 완료");
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const __getUserLetters = createAsyncThunk(
+  "GET_USER_LETTERS",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await jsonApi.get(`/letters?userId=${payload}`);
+      console.log(response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const commentSlice = createSlice({
   name: "comment",
