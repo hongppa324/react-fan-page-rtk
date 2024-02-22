@@ -5,7 +5,7 @@ import Comment from "../components/Comment";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import authApi from "../axios/authAPi";
+import authApi from "../axios/authApi";
 import { logoutUser } from "../redux/modules/authSlice";
 import { __getData } from "../redux/modules/commentSlice";
 

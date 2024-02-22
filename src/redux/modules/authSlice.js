@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn: false,
-  accessToken: null,
-  avatar: null,
-  nickname: null,
-  userId: null,
+  // isLoggedIn: false,
+  // accessToken: null,
+  // avatar: null,
+  // nickname: null,
+  // userId: null,
+
+  isLoggedIn: !!localStorage.getItem("accessToken"),
+  avatar: localStorage.getItem("avatar"),
+  nickname: localStorage.getItem("nickname"),
+  userId: localStorage.getItem("userId"),
 };
 
 const authSlice = createSlice({
@@ -14,6 +19,10 @@ const authSlice = createSlice({
   reducers: {
     loginUser: (state, action) => {
       const { accessToken, avatar, nickname, userId } = action.payload;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("avatar", avatar);
+      localStorage.setItem("nickname", nickname);
+      localStorage.setItem("userId", userId);
       state.isLoggedIn = true;
       state.accessToken = accessToken;
       state.avatar = avatar;
@@ -31,6 +40,7 @@ const authSlice = createSlice({
       state.avatar = "";
       state.nickname = "";
       state.userId = "";
+      localStorage.clear();
     },
 
     editUser: (state, action) => {

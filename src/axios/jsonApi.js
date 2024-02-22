@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const jsonApi = axios.create({
-  baseURL: "https://serious-shade-weeder.glitch.me/",
+  baseURL: "http://localhost:5000/",
 });
 
 jsonApi.interceptors.request.use(

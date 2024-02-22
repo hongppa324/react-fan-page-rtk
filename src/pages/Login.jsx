@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import styled from "styled-components";
-import authApi from "../axios/authAPi";
+import authApi from "../axios/authApi";
 import { useDispatch } from "react-redux";
 import { loginUser, signupUser } from "../redux/modules/authSlice";
 import { toast } from "react-toastify";

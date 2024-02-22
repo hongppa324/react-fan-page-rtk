@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import Button from "../components/Button";
-import authApi from "../axios/authAPi";
+import authApi from "../axios/authApi";
 import { toast } from "react-toastify";
 import { editUser, logoutUser } from "../redux/modules/authSlice";
 import { __getUserLetters, __updateUser } from "../redux/modules/commentSlice";
